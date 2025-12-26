@@ -38,7 +38,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Danh sách thành viên</title>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-  <link rel="stylesheet" href="./public/output.css"/>
+  <link rel="stylesheet" href="./public/output.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     .member-card {
@@ -149,20 +149,16 @@
       <div x-show="!loading.employees && filteredEmployees.length > 0 && !apiError.employees"
         class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-6 gap-y-8">
         <template x-for="employee in filteredEmployees" :key="employee.id">
-          <div 
-            @click="viewEmployeeDetail(employee.nickname)"
+          <div @click="viewEmployeeDetail(employee.nickname)"
             class="cursor-pointer transition-transform duration-300 transform hover:scale-105 hover:animate-wiggle"
-            x-data="{ imgLoaded: false }"
-          >
-            <img 
-              :src="employee.avatarInCategory || 'https://placewaifu.com/image/385/622'"
-              :alt="employee.nickname" loading="lazy"
-              class="w-full h-auto object-contain rounded-xl transition-opacity duration-500 opacity-0"
-              @load="imgLoaded = true; $el.classList.add('opacity-100')" 
-            />
+            x-data="{ imgLoaded: false }">
+            <img :src="employee.avatarInCategory || 'https://placewaifu.com/image/385/622'" :alt="employee.nickname"
+              loading="lazy" class="w-full h-auto object-contain rounded-xl transition-opacity duration-500 opacity-0"
+              @load="imgLoaded = true; $el.classList.add('opacity-100')" />
             <!-- Responsibilities as badge row below image -->
             <div class="mt-3 flex justify-center" x-show="imgLoaded" x-transition>
-              <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 font-bold text-sm shadow-sm border border-blue-200">
+              <span
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 font-bold text-sm shadow-sm border border-blue-200">
                 <span x-text="employee.responsibilities || 'Chưa rõ vai trò'"></span>
               </span>
             </div>
@@ -193,7 +189,7 @@
   </main>
   <script>
     // Link đến server API nơi chúng ta sẽ lấy dữ liệu về.
-    const API_BASE_URL = 'https://sonic.worldsimp.com/api/v1';
+    const API_BASE_URL = 'https://api.worldsimp.com/api/v1';
 
     // BỘ NÃO CỦA TRANG WEB :)
     // Toàn bộ code điều khiển trang danh sách thành viên nằm trong hàm staffApp() này.
@@ -295,7 +291,7 @@
               throw new Error(`Lỗi ${response.status} khi tải dữ liệu.`);
             }
             const data = await response.json();
-            return data.data || []; // Trả về mảng dữ liệu, hoặc mảng rỗng nếu không có gì.
+            return data || []; // Trả về mảng dữ liệu, hoặc mảng rỗng nếu không có gì.
           } catch (error) {
             this.apiError[errorKey] = error.message; // Nếu có lỗi, lưu lại.
             return null;
@@ -401,4 +397,3 @@
 
 
 </html>
-

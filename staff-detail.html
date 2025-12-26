@@ -37,7 +37,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chi tiết thành viên</title>
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel="stylesheet" href="./public/output.css"/>
+    <link rel="stylesheet" href="./public/output.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Ẩn thanh cuộn nhưng vẫn giữ cuộn */
@@ -57,7 +57,8 @@
         }
 
         /* fix */
-        html, body {
+        html,
+        body {
             overflow-x: hidden;
         }
     </style>
@@ -146,30 +147,28 @@
                         </div>
                     </div>
 
-                  <!-- Phần description -->
-<div class="text-base leading-relaxed text-zinc-700 border-l-4 border-pink-400 pl-4 pr-4 py-3 bg-pink-50 rounded-l-md"
-    x-show="employee.description" 
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0 transform -translate-x-2"
-    x-transition:enter-end="opacity-100 transform translate-x-0"
-    x-transition:leave="transition ease-in duration-200"
-    x-transition:leave-start="opacity-100 transform translate-x-0"
-    x-transition:leave-end="opacity-0 transform -translate-x-2">
-    <p class="m-0" x-html="employee.description"></p>
-</div>
+                    <!-- Phần description -->
+                    <div class="text-base leading-relaxed text-zinc-700 border-l-4 border-pink-400 pl-4 pr-4 py-3 bg-pink-50 rounded-l-md"
+                        x-show="employee.description" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform -translate-x-2"
+                        x-transition:enter-end="opacity-100 transform translate-x-0"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 transform translate-x-0"
+                        x-transition:leave-end="opacity-0 transform -translate-x-2">
+                        <p class="m-0" x-html="employee.description"></p>
+                    </div>
 
-<!-- Phần hobbies -->
-<div class="text-base leading-relaxed text-zinc-700 border-l-4 border-green-400 pl-4 pr-4 py-3 bg-pink-50 rounded-l-md mt-4"
-    x-show="employee.hobbies" 
-    x-transition:enter="transition ease-out duration-300"
-    x-transition:enter-start="opacity-0 transform -translate-x-2"
-    x-transition:enter-end="opacity-100 transform translate-x-0"
-    x-transition:leave="transition ease-in duration-200"
-    x-transition:leave-start="opacity-100 transform translate-x-0"
-    x-transition:leave-end="opacity-0 transform -translate-x-2">
-    <span class="block text-zinc-500 text-sm font-semibold pb-1">Sở thích</span>
-    <p class="m-0" x-html="employee.hobbies"></p>
-</div>
+                    <!-- Phần hobbies -->
+                    <div class="text-base leading-relaxed text-zinc-700 border-l-4 border-green-400 pl-4 pr-4 py-3 bg-pink-50 rounded-l-md mt-4"
+                        x-show="employee.hobbies" x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 transform -translate-x-2"
+                        x-transition:enter-end="opacity-100 transform translate-x-0"
+                        x-transition:leave="transition ease-in duration-200"
+                        x-transition:leave-start="opacity-100 transform translate-x-0"
+                        x-transition:leave-end="opacity-0 transform -translate-x-2">
+                        <span class="block text-zinc-500 text-sm font-semibold pb-1">Sở thích</span>
+                        <p class="m-0" x-html="employee.hobbies"></p>
+                    </div>
 
 
 
@@ -197,7 +196,7 @@
     </template>
 
     <script>
-        const API_BASE_URL = 'https://sonic.worldsimp.com/api/v1';
+        const API_BASE_URL = 'https://api.worldsimp.com/api/v1';
 
         function employeeDetailApp() {
             return {
@@ -260,7 +259,7 @@
                         const response = await fetch(url);
                         if (!response.ok) throw new Error(`${typeName} API Error: ${response.status}`);
                         const data = await response.json();
-                        this[propertyKey] = data.data || [];
+                        this[propertyKey] = data || [];
                         console.log(`Alpine Detail Page: ${typeName} loaded`, this[propertyKey].length);
                     } catch (error) {
                         console.error(`Alpine Detail Page: Error loading ${typeName}:`, error);
@@ -281,7 +280,7 @@
                         const response = await fetch(`${API_BASE_URL}/employees`);
                         if (!response.ok) throw new Error(`Employees API Error: ${response.status}`);
                         const data = await response.json();
-                        const allEmployeesRaw = data.data || [];
+                        const allEmployeesRaw = data || [];
 
                         let foundEmployee = allEmployeesRaw.find(emp =>
                             emp.nickname && emp.nickname.toLowerCase() === this.employeeIdentifier.toLowerCase()
