@@ -277,7 +277,7 @@
                     }
                     this.apiError = null; // Reset lỗi cụ thể của employee fetch
                     try {
-                        const response = await fetch(`${API_BASE_URL}/employees`);
+                        const response = await fetch(`${API_BASE_URL}/employees?range=[0,999]`);
                         if (!response.ok) throw new Error(`Employees API Error: ${response.status}`);
                         const data = await response.json();
                         const allEmployeesRaw = data || [];

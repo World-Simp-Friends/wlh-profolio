@@ -311,7 +311,7 @@
           }
 
           this.loading.employees = true; // Bật loading...
-          const rawEmployees = await this._fetchHelper('/employees', 'employees');
+          const rawEmployees = await this._fetchHelper('/employees?range=[0,999]', 'employees');
 
           if (rawEmployees) {
             // Xử lý dữ liệu thô: Gắn 'trueCategoryId' vào mỗi nhân viên để việc lọc sau này dễ hơn.
